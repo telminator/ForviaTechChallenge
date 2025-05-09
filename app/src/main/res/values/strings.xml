@@ -1,3 +1,34 @@
 <resources>
-    <string name="app_name">Challenge</string>
+    <string name="app_name">Aptoide App List</string>
+
+    <!-- App Item -->
+    <string name="version_format">v%1$s</string>
+    <string name="downloads_format">Downloads: %1$s</string>
+    <string name="app_icon_content_description">%1$s icon</string>
+    <string name="rating_format">%1$.1f★</string>
+    <string name="downloads_million">%1$.1fM</string>
+    <string name="downloads_thousand">%1$.1fK</string>
+
+    <!-- App Details -->
+    <string name="app_banner_content_description">%1$s banner</string>
+    <string name="version_label">Version: %1$s</string>
+    <string name="rating_label">Rating: %1$.1f★</string>
+    <string name="downloads_label">Downloads: %1$d</string>
+    <string name="size_label">Size: %1$s</string>
+    <string name="download_button">Download</string>
+    <string name="size_megabytes">%.1f MB</string>
+    <string name="size_kilobytes">%.0f KB</string>
+
+    <!-- Screens -->
+    <string name="apps_list_title">Aptoide Apps</string>
+    <string name="app_details_title">App Details</string>
+    <string name="back_button_content_description">Back</string>
+
+    <!-- Warnings -->
+    <string name="download_unavailable_title">Download Unavailable</string>
+    <string name="download_unavailable_message">Download is not available in demo mode.</string>
+    <string name="ok">OK</string>
+
+    <!-- Error and Loading -->
+    <string name="retry_button">Retry</string>
 </resources>
