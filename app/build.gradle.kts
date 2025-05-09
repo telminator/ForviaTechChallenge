@@ -39,7 +39,9 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
     hilt {
         enableAggregatingTask = false
     }
@@ -72,6 +74,12 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.compose.material.icons.extended)
+
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
+
+    implementation(libs.timber)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
