@@ -33,8 +33,6 @@ fun AppDetail(
     onDownloadClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-
 
     Column(
         modifier = modifier
