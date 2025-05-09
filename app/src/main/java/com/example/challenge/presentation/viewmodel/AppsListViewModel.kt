@@ -16,7 +16,7 @@ import javax.inject.Inject
 class AppsListViewModel @Inject constructor(
     private val appUseCases: AppUseCases
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<AppsListUiState>(AppsListUiState.Loading)
+    private val _uiState = MutableStateFlow<AppsListUiState>(AppsListUiState.Loading())
     val uiState: StateFlow<AppsListUiState> = _uiState.asStateFlow()
 
     init {
@@ -25,7 +25,7 @@ class AppsListViewModel @Inject constructor(
 
     fun loadApps() {
         viewModelScope.launch {
-            _uiState.value = AppsListUiState.Loading
+            _uiState.value = AppsListUiState.Loading()
 
             appUseCases.getApps()
                 .catch { e ->
@@ -44,17 +44,22 @@ class AppsListViewModel @Inject constructor(
 
     fun refreshApps() {
         viewModelScope.launch {
+            _uiState.value = when (val currentState = _uiState.value) {
+                is AppsListUiState.Loading -> currentState.copy(isRefreshing = true)
+                is AppsListUiState.Success -> currentState.copy(isRefreshing = true)
+                is AppsListUiState.Error -> currentState.copy(isRefreshing = true)
+            }
+
             appUseCases.refreshApps()
                 .onFailure { e ->
-                    _uiState.value = AppsListUiState.Error("Failed to refresh apps: ${e.message}")
+                    _uiState.value = AppsListUiState.Error("Failed to refresh apps: ${e.message}", isRefreshing = false)
                 }
         }
     }
-
 }
 
 sealed class AppsListUiState {
-    object Loading : AppsListUiState()
-    data class Success(val apps: List<App>) : AppsListUiState()
-    data class Error(val message: String) : AppsListUiState()
+    data class Loading(val isRefreshing: Boolean = false) : AppsListUiState()
+    data class Success(val apps: List<App>, val isRefreshing: Boolean = false) : AppsListUiState()
+    data class Error(val message: String, val isRefreshing: Boolean = false) : AppsListUiState()
 }
