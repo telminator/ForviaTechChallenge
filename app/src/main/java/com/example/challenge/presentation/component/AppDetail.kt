@@ -19,18 +19,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.challenge.R
 import com.example.challenge.domain.model.App
+
 @Composable
- fun AppDetail(
+fun AppDetail(
     app: App,
     onDownloadClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
 
     Column(
         modifier = modifier
@@ -39,7 +43,6 @@ import com.example.challenge.domain.model.App
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // App graphic banner (if available)
         app.graphicUrl?.let { url ->
             AsyncImage(
                 model = url,
@@ -56,7 +59,6 @@ import com.example.challenge.domain.model.App
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // App icon and name
         AsyncImage(
             model = app.iconUrl,
             contentDescription = stringResource(R.string.app_icon_content_description, app.name),
@@ -105,6 +107,7 @@ import com.example.challenge.domain.model.App
                         val mbSize = app.size / (1024.0 * 1024.0)
                         stringResource(R.string.size_megabytes, mbSize.toFloat())
                     }
+
                     else -> {
                         val kbSize = app.size / 1024.0
                         stringResource(R.string.size_kilobytes, kbSize.toFloat())

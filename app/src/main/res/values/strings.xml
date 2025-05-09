@@ -31,4 +31,18 @@
 
     <!-- Error and Loading -->
     <string name="retry_button">Retry</string>
+
+    <!-- Notification -->
+    <string name="channel_name">New Apps Available</string>
+    <string name="channel_description">Notifications about new apps available</string>
+    <string name="new_apps_available">New apps are available!</string>
+    <string name="check_for_new_apps">Check out the latest apps</string>
+
+    <!-- Notification permission -->
+    <string name="notification_permission_granted">Notifications enabled</string>
+    <string name="notification_permission_denied">Notifications disabled. You won\'t receive updates about new apps.</string>
+    <string name="notification_permission_title">Notification Permission</string>
+    <string name="notification_permission_rationale">We need notification permission to keep you updated about new apps.</string>
+    <string name="notification_permission_ok">OK</string>
+    <string name="notification_permission_cancel">Cancel</string>
 </resources>

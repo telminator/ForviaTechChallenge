@@ -68,7 +68,6 @@ fun AppDetailScreen(
             }
         }
 
-        // Show warning dialog if needed
         if (downloadState is DownloadState.ShowingWarning) {
             WarningDialog(onDismiss = onDismissWarning)
         }

@@ -16,7 +16,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,8 +24,6 @@ import com.example.challenge.presentation.component.AppItem
 import com.example.challenge.presentation.component.ErrorView
 import com.example.challenge.presentation.component.LoadingView
 import com.example.challenge.presentation.viewmodel.AppsListUiState
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,18 +34,10 @@ fun AppsListScreen(
 ) {
     val state = rememberPullToRefreshState()
     var isRefreshing by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
 
-    // Handle the refresh action
     LaunchedEffect(isRefreshing) {
         if (isRefreshing) {
             onRefresh()
-            // In a real app, you'd want to observe when the refresh is complete
-            // For now, we'll just simulate it with a delay
-            coroutineScope.launch {
-                delay(1500)
-                isRefreshing = false
-            }
         }
     }
 
@@ -68,12 +57,14 @@ fun AppsListScreen(
                 is AppsListUiState.Loading -> {
                     LoadingView()
                 }
+
                 is AppsListUiState.Success -> {
                     PullToRefreshBox(
                         isRefreshing = isRefreshing,
                         onRefresh = { isRefreshing = true },
                         state = state
                     ) {
+
                         LazyColumn(Modifier.fillMaxSize()) {
                             items(uiState.apps) { app ->
                                 AppItem(
@@ -84,6 +75,7 @@ fun AppsListScreen(
                         }
                     }
                 }
+
                 is AppsListUiState.Error -> {
                     ErrorView(
                         message = uiState.message,
